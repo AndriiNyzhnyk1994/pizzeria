@@ -1,23 +1,8 @@
 import "./App.css";
+import Categories from "./components/Categories";
 import Header from "./components/Header";
 import Sort from "./components/Sort";
 import './scss/app.scss';
-
-
-function Categories() {
-  return (
-    <div class="categories">
-      <ul>
-        <li class="active">Все</li>
-        <li>Мясные</li>
-        <li>Вегетарианская</li>
-        <li>Гриль</li>
-        <li>Острые</li>
-        <li>Закрытые</li>
-      </ul>
-    </div>
-  )
-}
 
 
 
