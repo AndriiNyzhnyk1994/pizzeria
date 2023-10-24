@@ -19,7 +19,14 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            <PizzaBlock title='Мексиканская' price={400}/>
+            {pizzas.map(obj => {
+              return(
+                <PizzaBlock {...obj}/>
+                // если внутри PizzaBlock все входящие пропсы 
+                // совпадают со свойствами obj обьекта из базы данных
+                // можно передать через пропсы обьект пиццы целиком таким способом  
+              )
+            })}
           </div>
         </div>
       </div>
