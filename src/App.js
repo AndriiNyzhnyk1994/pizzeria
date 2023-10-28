@@ -21,7 +21,7 @@ function App() {
           <div className="content__items">
             {pizzas.map(obj => {
               return(
-                <PizzaBlock {...obj}/>
+                <PizzaBlock key={obj.id} {...obj}/>
                 // если внутри PizzaBlock все входящие пропсы 
                 // совпадают со свойствами obj обьекта из базы данных
                 // можно передать через пропсы обьект пиццы целиком таким способом  
