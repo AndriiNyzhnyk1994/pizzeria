@@ -4,15 +4,16 @@ import Header from "./components/Header";
 import PizzaBlock from "./components/PizzaBlock";
 import Sort from "./components/Sort";
 import './scss/app.scss';
-import pizzas from './assets/pizzas.json'
+import { useState } from "react";
 
 
 function App() {
-  // https://653db286f52310ee6a9a45a9.mockapi.io/items
+  const [items, setItems] = useState([])
 
   fetch('https://653db286f52310ee6a9a45a9.mockapi.io/items').then((res) => {
     return res.json()
-  }).then((res) => console.log(res))
+  })
+  .then((res) => setItems(res))
 
   return (
     <div className="wrapper">
@@ -25,7 +26,7 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            {pizzas.map(obj => {
+            {items.map(obj => {
               return (
                 <PizzaBlock key={obj.id} {...obj} />
                 // если внутри PizzaBlock все входящие пропсы 
