@@ -13,7 +13,9 @@ function Categories() {
                 {categories.map((value, index) => {
                     return (
                         <li
-                            key={index}
+                            key={index} 
+                            // если массив, который мапим, меняется, индекс нельзя использовать
+                            // есть массив не меняется, можно использовать индекс 
                             onClick={() => onClickCategory(index)}
                             className={activeIndex === index ? 'active' : ''}>{value}</li>
                     )
