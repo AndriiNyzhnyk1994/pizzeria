@@ -1,3 +1,4 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -7,13 +8,16 @@ import './scss/app.scss';
 
 
 function App() {
-  
+
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
         <div className="container">
-            <NotFound/>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/not-found" element={<NotFound />} />
+          </Routes>
         </div>
       </div>
     </div>
