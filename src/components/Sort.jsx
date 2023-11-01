@@ -12,8 +12,6 @@ function Sort() {
     setOpen(false)
   }
 
-
-
   return (
     <div className="sort">
       <div className="sort__label">
