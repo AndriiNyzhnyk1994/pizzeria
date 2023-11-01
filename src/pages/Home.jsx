@@ -1,9 +1,10 @@
 import React from 'react'
+import { useEffect, useState } from "react";
+
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Sort from "../components/Sort";
-import { useEffect, useState } from "react";
 
 function Home() {
     const [items, setItems] = useState([])
