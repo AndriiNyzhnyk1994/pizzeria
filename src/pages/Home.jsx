@@ -9,20 +9,23 @@ import Sort from "../components/Sort";
 function Home() {
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [categoryId, setCategoryId] = useState(0)
+    const [sortType, setSortType] = useState(0)
 
     useEffect(() => {
-        fetch('https://653db286f52310ee6a9a45a9.mockapi.io/items')
+        fetch('https://653db286f52310ee6a9a45a9.mockapi.io/items?')
             .then(res => res.json())
             .then(res => {
                 setItems(res)
                 setIsLoading(false)
             })
+            window.scrollTo(0, 0) 
     }, [])
 
     return (
-        <>
+        <div className="content">
             <div className="content__top">
-                <Categories />
+                <Categories value={categoryId} onClickCategory={(id) => setCategoryId(id)} />
                 <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
@@ -30,7 +33,7 @@ function Home() {
 
                 {
                     isLoading
-                        ? [...new Array(6)].map((_, index) => <Skeleton />)
+                        ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
                         // если происходит загрузка, мы создаем пустой массив,
                         // и с помощью spread оператора и команды new Array(6) заполняем его
                         // шестью элементами (со значением undefined. Значение не важно,
@@ -45,7 +48,7 @@ function Home() {
                 можно передать через пропсы обьект пиццы целиком таким способом   */}
             </div>
 
-        </>
+        </div>
     )
 }
 
