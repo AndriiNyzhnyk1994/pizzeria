@@ -13,19 +13,21 @@ function Home() {
     const [sortType, setSortType] = useState(0)
 
     useEffect(() => {
-        fetch('https://653db286f52310ee6a9a45a9.mockapi.io/items?')
+        setIsLoading(true)
+        fetch('https://653db286f52310ee6a9a45a9.mockapi.io/items?category=' + categoryId)
             .then(res => res.json())
             .then(res => {
                 setItems(res)
                 setIsLoading(false)
             })
-            window.scrollTo(0, 0) 
-    }, [])
+            window.scrollTo(0, 0)
+            // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
+    }, [categoryId])
 
     return (
         <div className="content">
             <div className="content__top">
-                <Categories value={categoryId} onClickCategory={(id) => setCategoryId(id)} />
+                <Categories value={categoryId} onClickCategory={(i) => setCategoryId(i)} />
                 <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
@@ -47,7 +49,6 @@ function Home() {
                 совпадают со свойствами obj обьекта из базы данных
                 можно передать через пропсы обьект пиццы целиком таким способом   */}
             </div>
-
         </div>
     )
 }
