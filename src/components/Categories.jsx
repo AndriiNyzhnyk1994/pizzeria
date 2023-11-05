@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function Categories({ value, onClickCategory }) {    
+function Categories({ value, onChangeCategory }) {    
     const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
     
     return (
@@ -12,7 +12,7 @@ function Categories({ value, onClickCategory }) {
                             key={index} 
                             // если массив, который мапим, меняется, индекс нельзя использовать
                             // есть массив не меняется, можно использовать индекс 
-                            onClick={() => onClickCategory(index)}
+                            onClick={() => onChangeCategory(index)}
                             className={value === index ? 'active' : ''}>{categoryName}</li>
                     )
                 })}
