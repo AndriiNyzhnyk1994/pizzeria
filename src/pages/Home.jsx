@@ -16,9 +16,15 @@ function Home() {
     })
     useEffect(() => {
         setIsLoading(true)
+
+        const sortBy = sortType.sortProperty.replace('-', '') 
+        // replace нужен чтобы вернуть вмето '-price' новую строку 'price'
+        // потому что это часть url ссылки, а символ '-' в ней недопустим
+        const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
+
         fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?${
             categoryId > 0 ? `category=${categoryId}` : ''
-        }&sortBy=${sortType.sortProperty}&order=desc`)
+        }&sortBy=${sortBy}&order=${order}`)
             .then(res => res.json())
             .then(res => {
                 setItems(res)
