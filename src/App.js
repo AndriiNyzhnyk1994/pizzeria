@@ -5,14 +5,18 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import './scss/app.scss';
 import Cart from "./pages/Cart";
+import { useState } from "react";
 
 
 
 function App() {
+  const [searchValue, setSearchValue] = useState('')
+
+  console.log(searchValue, 'input value');
 
   return (
     <div className="wrapper">
-      <Header />
+      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
       
         <div className="container">
           <Routes>
