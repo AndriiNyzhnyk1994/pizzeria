@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 function PizzaBlock({ title, price, sizes, types, imageUrl }) {
+  
   const [activeType, setActiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
   const typeNames = ['тонкое', 'традиционное']

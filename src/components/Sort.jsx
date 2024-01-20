@@ -11,7 +11,7 @@ function Sort({ value, onChangeSort }) {
     { name: 'алфавиту (DESC)', sortProperty: 'title' },
     { name: 'алфавиту (ASC)', sortProperty: '-title' },
   ]
-  
+
   const onClickListItem = (obj) => {
     onChangeSort(obj)
     setOpen(false)
@@ -39,7 +39,7 @@ function Sort({ value, onChangeSort }) {
         open && <div className="sort__popup">
           <ul>
             {
-              list.map(( obj, i ) => {
+              list.map((obj, i) => {
                 return (
                   <li
                     key={i}

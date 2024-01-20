@@ -11,7 +11,7 @@ function Home() {
     const [isLoading, setIsLoading] = useState(true)
     const [categoryId, setCategoryId] = useState(0)
     const [sortType, setSortType] = useState({
-        name: 'популярности',
+        name: 'алфавиту',
         sortProperty: 'title'
     })
     useEffect(() => {
@@ -25,7 +25,7 @@ function Home() {
         fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?${
             categoryId > 0 ? `category=${categoryId}` : ''
         }&sortBy=${sortBy}&order=${order}`)
-            .then(res => res.json())
+            .then(res => res.json() )
             .then(res => {
                 setItems(res)
                 setIsLoading(false)
