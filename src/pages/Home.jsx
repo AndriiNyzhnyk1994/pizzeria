@@ -6,7 +6,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Sort from "../components/Sort";
 
-function Home() {
+function Home({searchValue}) {
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [categoryId, setCategoryId] = useState(0)
@@ -34,6 +34,15 @@ function Home() {
             // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
     }, [categoryId, sortType])
 
+
+const pizzas = items.filter( ( obj ) => {
+    if(obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+        return true
+    }
+    return false
+})
+.map(obj => <PizzaBlock key={obj.id} {...obj} />)
+
     return (
         <div className="content">
             <div className="content__top">
@@ -52,7 +61,7 @@ function Home() {
                         // главное - количество элементов)
                         // Затем выполняем отрисовку компоненты Skeleton столько раз,
                         // сколько элементов в массиве (6) 
-                        : items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
+                        : pizzas
                 }
 
                 {/* если внутри PizzaBlock все входящие пропсы 
