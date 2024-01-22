@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from "react";
 
+
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
@@ -16,15 +17,16 @@ function Home({searchValue}) {
     })
     useEffect(() => {
         setIsLoading(true)
-
+        
         const sortBy = sortType.sortProperty.replace('-', '') 
         // replace нужен чтобы вернуть вмето '-price' новую строку 'price'
         // потому что это часть url ссылки, а символ '-' в ней недопустим
         const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
+        const category = categoryId > 0 ? `category=${categoryId}` : ''
+        const search = searchValue ? `&search=${searchValue}` : ''
 
-        fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?${
-            categoryId > 0 ? `category=${categoryId}` : ''
-        }&sortBy=${sortBy}&order=${order}`)
+
+        fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`)
             .then(res => res.json() )
             .then(res => {
                 setItems(res)
@@ -32,16 +34,10 @@ function Home({searchValue}) {
             })
             window.scrollTo(0, 0)
             // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
-    }, [categoryId, sortType])
+    }, [categoryId, sortType, searchValue])
 
 
-const pizzas = items.filter( ( obj ) => {
-    if(obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-        return true
-    }
-    return false
-})
-.map(obj => <PizzaBlock key={obj.id} {...obj} />)
+const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
 
     return (
         <div className="content">
@@ -68,6 +64,7 @@ const pizzas = items.filter( ( obj ) => {
                 совпадают со свойствами obj обьекта из базы данных
                 можно передать через пропсы обьект пиццы целиком таким способом   */}
             </div>
+            
         </div>
     )
 }
