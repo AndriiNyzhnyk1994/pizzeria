@@ -6,9 +6,11 @@ import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Sort from "../components/Sort";
+import Pagination from '../components/Pagination';
 
 function Home({searchValue}) {
     const [items, setItems] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
     const [isLoading, setIsLoading] = useState(true)
     const [categoryId, setCategoryId] = useState(0)
     const [sortType, setSortType] = useState({
@@ -26,7 +28,7 @@ function Home({searchValue}) {
         const search = searchValue ? `&search=${searchValue}` : ''
 
 
-        fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`)
+        fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
             .then(res => res.json() )
             .then(res => {
                 setItems(res)
@@ -34,7 +36,7 @@ function Home({searchValue}) {
             })
             window.scrollTo(0, 0)
             // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
-    }, [categoryId, sortType, searchValue])
+    }, [categoryId, sortType, searchValue, currentPage])
 
 
 const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
@@ -64,7 +66,7 @@ const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
                 совпадают со свойствами obj обьекта из базы данных
                 можно передать через пропсы обьект пиццы целиком таким способом   */}
             </div>
-            
+            <Pagination onChangePage={number => { setCurrentPage(number) }} />
         </div>
     )
 }
