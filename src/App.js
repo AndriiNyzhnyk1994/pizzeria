@@ -14,11 +14,13 @@ export const SearchContext = React.createContext('')
 function App() {
   const [searchValue, setSearchValue] = useState('')
 
+
+
   console.log(searchValue, '- input value');
 
   return (
     <div className="wrapper">
-      <SearchContext.Provider value={{searchValue, setSearchValue}}>
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
         <Header />
         <div className="container">
           <Routes>
