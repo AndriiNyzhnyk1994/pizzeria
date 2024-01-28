@@ -17,12 +17,12 @@ function Home() {
     const dispatch = useDispatch()
     
     const onChangeCategory = (id) => {
-        dispatch(setCategoryId({id}))
+        dispatch( setCategoryId(id) )
     }
 
     
     
-    
+
     const {searchValue} = React.useContext(SearchContext)
     const [items, setItems] = useState([])
     const [currentPage, setCurrentPage] = useState(1)

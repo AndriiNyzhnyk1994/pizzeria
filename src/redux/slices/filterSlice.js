@@ -15,7 +15,7 @@ export const filterSlice = createSlice({
   reducers: {
     setCategoryId(state, action) {
       console.log('action -', action);
-      state.categoryId = action.payload.id
+      state.categoryId = action.payload
     },
   },
 })
