@@ -11,57 +11,54 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 
 
 function Home() {
-    const categoryId = useSelector( state => state.filter.categoryId )
-    const sortType = useSelector(state => state.filter.sort)
-    
+    const {categoryId, sort} = useSelector(state => state.filter)
+    const sortType = sort.sortProperty
+
     const dispatch = useDispatch()
-    
+
     const onChangeCategory = (id) => {
-        dispatch( setCategoryId(id) )
+        dispatch(setCategoryId(id))
     }
 
-    
-    
 
-    const {searchValue} = React.useContext(SearchContext)
+    const { searchValue } = React.useContext(SearchContext)
     const [items, setItems] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [isLoading, setIsLoading] = useState(true)
-    
-
-
-    const setSortType = () => {}
 
 
     useEffect(() => {
         setIsLoading(true)
-        
-        const sortBy = sortType.sortProperty.replace('-', '') 
+
+        const sortBy = sortType.replace('-', '')
         // replace нужен чтобы вернуть вмето '-price' новую строку 'price'
         // потому что это часть url ссылки, а символ '-' в ней недопустим
-        const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
+        const order = sortType.includes('-') ? 'asc' : 'desc'
         const category = categoryId > 0 ? `category=${categoryId}` : ''
         const search = searchValue ? `&search=${searchValue}` : ''
 
-
+        // --------------------------fetch request
         fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
-            .then(res => res.json() )
+            .then(res => res.json())
             .then(res => {
                 setItems(res)
                 setIsLoading(false)
             })
-            window.scrollTo(0, 0)
-            // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
+        window.scrollTo(0, 0)
+        // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
     }, [categoryId, sortType, searchValue, currentPage])
 
 
-const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
+    const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
+
+
+
 
     return (
         <div className="content">
             <div className="content__top">
                 <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-                <Sort value={sortType} onChangeSort={ (obj) => setSortType(obj) }/>
+                <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
