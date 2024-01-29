@@ -11,7 +11,7 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 import axios from 'axios'
 
 function Home() {
-    const {categoryId, sort} = useSelector(state => state.filter)
+    const { categoryId, sort } = useSelector(state => state.filter)
     const sortType = sort.sortProperty
 
     const dispatch = useDispatch()
@@ -26,6 +26,7 @@ function Home() {
 
 
 
+
     useEffect(() => {
         setIsLoading(true)
 
@@ -36,13 +37,22 @@ function Home() {
         const category = categoryId > 0 ? `category=${categoryId}` : ''
         const search = searchValue ? `&search=${searchValue}` : ''
 
-        // --------------------------fetch request
-        fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
-            .then(res => res.json())
-            .then(res => {
-                setItems(res)
-                setIsLoading(false)
-            })
+        // ___________________________fetch request
+        // fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+        //     .then(res => res.json())
+        //     .then(res => {
+        //         setItems(res)
+        //         setIsLoading(false)
+        //     })
+
+
+        //_____________________________axios request
+        axios.get(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+        .then(res => {
+            setItems(res.data)
+            setIsLoading(false)
+        })
+        
         window.scrollTo(0, 0)
         // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
     }, [categoryId, sortType, searchValue, currentPage])
