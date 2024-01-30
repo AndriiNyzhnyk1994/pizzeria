@@ -7,23 +7,27 @@ import Sort from "../components/Sort";
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 import axios from 'axios'
 
 function Home() {
-    const { categoryId, sort } = useSelector(state => state.filter)
+    const { categoryId, sort, currentPage } = useSelector(state => state.filter)
     const sortType = sort.sortProperty
-
     const dispatch = useDispatch()
+
+
+    const {searchValue} = React.useContext(SearchContext)
+    const [items, setItems] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
 
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id))
     }
-    const { searchValue } = React.useContext(SearchContext)
-    const [items, setItems] = useState([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [isLoading, setIsLoading] = useState(true)
 
+    const onChangePage = (value) => {
+        dispatch(setCurrentPage(value))
+    }
 
     useEffect(() => {
         setIsLoading(true)
@@ -36,7 +40,7 @@ function Home() {
         const search = searchValue ? `&search=${searchValue}` : ''
 
         // ___________________________fetch request
-        // fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+        // fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${pageCount}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
         //     .then(res => res.json())
         //     .then(res => {
         //         setItems(res)
@@ -57,8 +61,6 @@ function Home() {
 
 
     const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
-
-
 
 
     return (
@@ -86,7 +88,7 @@ function Home() {
                 совпадают со свойствами obj обьекта из базы данных
                 можно передать через пропсы обьект пиццы целиком таким способом   */}
             </div>
-            <Pagination onChangePage={number => { setCurrentPage(number) }} />
+            <Pagination onChangePage={onChangePage} />
         </div>
     )
 }
