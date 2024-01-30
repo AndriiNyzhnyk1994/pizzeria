@@ -1,20 +1,37 @@
 import React from 'react'
 import styles from './Search.module.scss'
 import { SearchContext } from '../../App'
+import debounce from 'lodash.debounce'
+
 
 const Search = () => {
-
+  const [value, setValue] = React.useState('')
   const { searchValue, setSearchValue } = React.useContext(SearchContext)
   const inputRef = React.useRef()
 
-
   const onClickClear = () => {
     setSearchValue('')
-    //document.querySelector('input').focus()
-    inputRef.current.focus()
+    setValue('')
+    //document.querySelector('input').focus() - неправильный подход
+    inputRef.current.focus() // - правильный подход
   }
 
-  console.log(inputRef);
+
+  // хук useCallback позволяет не пересоздавать функцию заново 
+  // при перерисовке компоненты.
+  const updateSearchValue = React.useCallback(
+    debounce((value) => { 
+      // debounce - функция из библиотеки lodash (для выполнения кода с задержкой)
+      setSearchValue(value)  
+    }, 300), []
+  )
+
+  const onChangeInput = (e) => {
+    setValue(e.target.value)
+    updateSearchValue(e.target.value)
+  }
+
+
   return (
     <div className={styles.root}>
       <svg
@@ -27,8 +44,8 @@ const Search = () => {
 
       <input
         ref={inputRef}
-        value={searchValue}
-        onChange={e => setSearchValue(e.currentTarget.value)}
+        value={value}
+        onChange={onChangeInput}
         placeholder='Поиск пиццы...'
         className={styles.input} />
       {searchValue &&

@@ -16,8 +16,6 @@ function App() {
 
 
 
-  console.log(searchValue, '- input value');
-
   return (
     <div className="wrapper">
       <SearchContext.Provider value={{ searchValue, setSearchValue }}>
