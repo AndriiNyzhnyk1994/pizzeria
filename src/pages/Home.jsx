@@ -3,18 +3,21 @@ import { useEffect, useState } from "react";
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
-import Sort from "../components/Sort";
+import Sort, { list } from "../components/Sort";
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import axios from 'axios'
+import qs from 'qs'
+import {useNavigate} from 'react-router-dom'
+
 
 function Home() {
     const { categoryId, sort, currentPage } = useSelector(state => state.filter)
     const sortType = sort.sortProperty
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
 
     const {searchValue} = React.useContext(SearchContext)
     const [items, setItems] = useState([])
@@ -29,6 +32,19 @@ function Home() {
         dispatch(setCurrentPage(value))
     }
 
+
+    useEffect(() => {
+        if(window.location.search) {
+            const params = qs.parse(window.location.search.substring(1)) 
+            // substring(1) - для удаления первого символа строки
+
+            const sort = list.find((obj) => obj.sortProperty === params.sortProperty)
+            
+            dispatch(setFilters({...params, sort}))
+        }
+    }, [])
+
+// ____________________________________REQUEST USE EFFECT____________________
     useEffect(() => {
         setIsLoading(true)
 
@@ -39,7 +55,7 @@ function Home() {
         const category = categoryId > 0 ? `category=${categoryId}` : ''
         const search = searchValue ? `&search=${searchValue}` : ''
 
-        // ___________________________fetch request
+        // ___________________________fetch request__________________________
         // fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${pageCount}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
         //     .then(res => res.json())
         //     .then(res => {
@@ -48,7 +64,7 @@ function Home() {
         //     })
 
 
-        //_____________________________axios request
+        //_____________________________axios request________________________
         axios.get(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
         .then(res => {
             setItems(res.data)
@@ -59,10 +75,23 @@ function Home() {
         // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
     }, [categoryId, sortType, searchValue, currentPage])
 
+    // ______________________________QS UseEffect____________________________
+    useEffect(() => {
+        // библиотека qs позволяет превращать обьект в специальную строку в стиле url 
+        const queryString = qs.stringify({
+            sortProperty: sort.sortProperty,
+            categoryId,
+            currentPage
+        })
+        // теперь наша константа queryString имеет формат строки и такой стиль:
+        // sortProperty=rating&categoryId=0&currentPage=1
+
+        navigate(`?${queryString}`)
+        // navigate меняет строку в браузере на то, что мы положим в аргументы функции
+        // `?` - знак вопроса в строке необходим для указания параметров в URL
+    }, [categoryId, sortType, currentPage])
 
     const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
-
-
     return (
         <div className="content">
             <div className="content__top">
