@@ -15,6 +15,7 @@ export const filterSlice = createSlice({
   initialState,
   reducers: {
     setCategoryId(state, action) {
+      console.log('action -', action);
       state.categoryId = action.payload
     },
     setSort(state, action) {
@@ -23,13 +24,8 @@ export const filterSlice = createSlice({
     setCurrentPage(state, action) {
       state.currentPage = action.payload
     },
-    setFilters(state, action) {
-      state.currentPage = Number(action.payload.currentPage) 
-      state.sort = action.payload.sort
-      state.categoryId = Number(action.payload.categoryId)
-    },
   },
 })
 
-export const { setCategoryId, setSort, setCurrentPage, setFilters } = filterSlice.actions
+export const { setCategoryId, setSort, setCurrentPage } = filterSlice.actions
 export default filterSlice.reducer
