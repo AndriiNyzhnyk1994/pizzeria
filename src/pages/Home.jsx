@@ -16,7 +16,10 @@ function Home() {
     const dispatch = useDispatch()
 
 
-    const {searchValue} = React.useContext(SearchContext)
+
+
+
+    const { searchValue } = React.useContext(SearchContext)
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -29,7 +32,7 @@ function Home() {
         dispatch(setCurrentPage(value))
     }
 
-    useEffect(() => {
+    const fetchPizzas = async () => {
         setIsLoading(true)
 
         const sortBy = sortType.replace('-', '')
@@ -39,24 +42,23 @@ function Home() {
         const category = categoryId > 0 ? `category=${categoryId}` : ''
         const search = searchValue ? `&search=${searchValue}` : ''
 
-        // ___________________________fetch request
-        // fetch(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${pageCount}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         setItems(res)
-        //         setIsLoading(false)
-        //     })
-
-
         //_____________________________axios request
-        axios.get(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
-        .then(res => {
+
+        try {
+            const res = await axios.get(`https://653db286f52310ee6a9a45a9.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
             setItems(res.data)
+        } catch (error) {
+            console.log('ERROR:', error.message);
+            alert('ERROR')
+        } finally {
             setIsLoading(false)
-        })
-        
+        }
         window.scrollTo(0, 0)
-        // window.scrollTo(0, 0) автоматически скроллит вверх страницы 
+        // window.scrollTo(0, 0) автоматически скроллит вверх страницы
+    }
+
+    useEffect(() => {
+        fetchPizzas()
     }, [categoryId, sortType, searchValue, currentPage])
 
 
