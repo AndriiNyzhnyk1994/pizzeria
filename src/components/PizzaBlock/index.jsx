@@ -8,6 +8,7 @@ const sizeValues = ['тонкое', 'традиционное']
 function PizzaBlock({id, title, price, sizes, types, imageUrl }) {  
   const [activeType, setActiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
+
   const count = useSelector(state => {
     const item = state.cart.items.find(item => item.id === id)
     if(item) {
