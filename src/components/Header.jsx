@@ -5,29 +5,28 @@ import { useSelector } from 'react-redux'
 import { selectCart } from '../redux/slices/cartSlice'
 
 
-function Header({searchValue, setSearchValue}) {
-
-  const {items, totalPrice} = useSelector(selectCart)
-
-  const totalCount = items.reduce( (acc, el) => {
-     return acc + el.count 
-    }, 0 )
+function Header({ searchValue, setSearchValue }) {
+  const { items, totalPrice } = useSelector(selectCart)
+  
+  const totalCount = items.reduce((acc, el) => {
+    return acc + el.count
+  }, 0)
 
   return (
     <div className="header">
       <div className="container">
-      <Link to="/">
-        <div className="header__logo">
-          
-          <img width="38" src={logoSvg} alt="Pizza logo" />
-          <div>
-            <h1>React Pizza</h1>
-            <p>самая вкусная пицца во вселенной</p>
+        <Link to="/">
+          <div className="header__logo">
+
+            <img width="38" src={logoSvg} alt="Pizza logo" />
+            <div>
+              <h1>React Pizza</h1>
+              <p>самая вкусная пицца во вселенной</p>
+            </div>
           </div>
-        </div>
-       </Link>
-      <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-    
+        </Link>
+        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+
 
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
@@ -62,7 +61,7 @@ function Header({searchValue, setSearchValue}) {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{ totalCount }</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>

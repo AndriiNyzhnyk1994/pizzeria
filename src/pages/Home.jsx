@@ -7,15 +7,14 @@ import Sort from "../components/Sort";
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
-import axios from 'axios'
-import { fetchPizzas } from '../redux/slices/pizzasSlice';
+import { selectFilter, setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import { fetchPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
 import NotFound from './NotFound';
 
 function Home() {
-    const { categoryId, sort, currentPage } = useSelector(state => state.filter)
-    const { items, status } = useSelector(state => state.pizzas)
-    const { searchValue } = React.useContext(SearchContext)
+    const { categoryId, sort, currentPage } = useSelector(selectFilter)
+    const { items, status } = useSelector(selectPizzas)
+    const searchValue = useSelector(state => state.filter.searchValue)
 
     const sortType = sort.sortProperty
     const dispatch = useDispatch()
