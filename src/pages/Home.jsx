@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter, setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
 import NotFound from './NotFound';
+import { Link } from 'react-router-dom';
 
 function Home() {
     const { categoryId, sort, currentPage } = useSelector(selectFilter)
@@ -46,7 +47,9 @@ function Home() {
     }, [categoryId, sortType, searchValue, currentPage])
 
 
-    const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
+    const pizzas = items.map(obj => <Link to={`/pizza/${obj.id}`}>
+        <PizzaBlock key={obj.id} {...obj} />
+    </Link>)
 
     return (
         <div className="content">

@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import './scss/app.scss';
 import Cart from "./pages/Cart";
 import React from "react";
+import FullPizza from "./pages/FullPizza";
 
 
 
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/pizza/:id" element={<FullPizza />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
