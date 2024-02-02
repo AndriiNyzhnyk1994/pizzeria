@@ -17,11 +17,8 @@ function Home() {
     const { items, status } = useSelector(state => state.pizzas)
     const { searchValue } = React.useContext(SearchContext)
 
-
     const sortType = sort.sortProperty
     const dispatch = useDispatch()
-
-
 
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id))
@@ -32,17 +29,14 @@ function Home() {
     }
 
     const getPizzas = async () => {
-
-
         const sortBy = sortType.replace('-', '')
         // replace нужен чтобы вернуть вмето '-price' новую строку 'price'
         // потому что это часть url ссылки, а символ '-' в ней недопустим
         const order = sortType.includes('-') ? 'asc' : 'desc'
         const category = categoryId > 0 ? `category=${categoryId}` : ''
         const search = searchValue ? `&search=${searchValue}` : ''
-
+        
         //_____________________________axios request
-
         dispatch(fetchPizzas({ sortBy, order, category, search, currentPage }))
         window.scrollTo(0, 0)
         // window.scrollTo(0, 0) автоматически скроллит вверх страницы
