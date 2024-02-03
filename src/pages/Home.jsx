@@ -1,11 +1,10 @@
 import React from 'react'
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Sort from "../components/Sort";
 import Pagination from '../components/Pagination';
-import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter, setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
