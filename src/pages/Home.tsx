@@ -5,18 +5,18 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Sort from "../components/Sort";
 import Pagination from '../components/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectFilter, setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
 import NotFound from './NotFound';
-import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
     const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter)
     const { items, status } = useSelector(selectPizzas)
 
     const sortType = sort.sortProperty
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const onChangeCategory = (id: number) => {
         dispatch(setCategoryId(id))
@@ -33,11 +33,16 @@ const Home: React.FC = () => {
         const order = sortType.includes('-') ? 'asc' : 'desc'
         const category = categoryId > 0 ? `category=${categoryId}` : ''
         const search = searchValue ? `&search=${searchValue}` : ''
-        
+
         //_____________________________axios request
         dispatch(
-            // @ts-ignore
-            fetchPizzas({ sortBy, order, category, search, currentPage }))
+            fetchPizzas({
+                sortBy,
+                order,
+                category,
+                search,
+                currentPage: String(currentPage)
+            }))
         window.scrollTo(0, 0)
         // window.scrollTo(0, 0) автоматически скроллит вверх страницы
     }
@@ -47,9 +52,7 @@ const Home: React.FC = () => {
     }, [categoryId, sortType, searchValue, currentPage])
 
 
-    const pizzas = items.map((obj: any) => <Link to={`/pizza/${obj.id}`}>
-        <PizzaBlock key={obj.id} {...obj} />
-    </Link>)
+    const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
 
     return (
         <div className="content">
