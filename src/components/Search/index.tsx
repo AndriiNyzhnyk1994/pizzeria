@@ -1,34 +1,38 @@
 import React from 'react'
 import styles from './Search.module.scss'
+// @ts-ignore
 import debounce from 'lodash.debounce'
 import { useDispatch } from 'react-redux'
 import { setSearchValue } from '../../redux/slices/filterSlice'
 
 
-const Search = () => {
+const Search: React.FC = () => {
   const [value, setValue] = React.useState('')
 
   const dispatch = useDispatch()
-  const inputRef = React.useRef()
+  const inputRef = React.useRef<HTMLInputElement>(null)
 
   const onClickClear = () => {
     dispatch(setSearchValue(''))
     setValue('')
     //document.querySelector('input').focus() - неправильный подход
-    inputRef.current.focus() // - правильный подход
+    inputRef.current?.focus() // - правильный подход
+    // знак вопроса после current - это проверка на true/false,
+    // Есть ли свойство current внутри inputRef.
+    // Если true, выполняем метод focus()
   }
 
 
   // хук useCallback позволяет не пересоздавать функцию заново 
   // при перерисовке компоненты.
   const updateSearchValue = React.useCallback(
-    debounce((value) => { 
+    debounce((value: string) => {
       // debounce - функция из библиотеки lodash (для выполнения кода с задержкой)
       dispatch(setSearchValue(value))
     }, 300), []
   )
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: any) => {
     setValue(e.target.value)
     updateSearchValue(e.target.value)
   }

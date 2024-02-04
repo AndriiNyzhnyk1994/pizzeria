@@ -11,19 +11,18 @@ import { fetchPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
 import NotFound from './NotFound';
 import { Link } from 'react-router-dom';
 
-function Home() {
-    const { categoryId, sort, currentPage } = useSelector(selectFilter)
+const Home: React.FC = () => {
+    const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter)
     const { items, status } = useSelector(selectPizzas)
-    const searchValue = useSelector(state => state.filter.searchValue)
 
     const sortType = sort.sortProperty
     const dispatch = useDispatch()
 
-    const onChangeCategory = (id) => {
+    const onChangeCategory = (id: number) => {
         dispatch(setCategoryId(id))
     }
 
-    const onChangePage = (value) => {
+    const onChangePage = (value: number) => {
         dispatch(setCurrentPage(value))
     }
 
@@ -36,7 +35,9 @@ function Home() {
         const search = searchValue ? `&search=${searchValue}` : ''
         
         //_____________________________axios request
-        dispatch(fetchPizzas({ sortBy, order, category, search, currentPage }))
+        dispatch(
+            // @ts-ignore
+            fetchPizzas({ sortBy, order, category, search, currentPage }))
         window.scrollTo(0, 0)
         // window.scrollTo(0, 0) автоматически скроллит вверх страницы
     }
@@ -46,7 +47,7 @@ function Home() {
     }, [categoryId, sortType, searchValue, currentPage])
 
 
-    const pizzas = items.map(obj => <Link to={`/pizza/${obj.id}`}>
+    const pizzas = items.map((obj: any) => <Link to={`/pizza/${obj.id}`}>
         <PizzaBlock key={obj.id} {...obj} />
     </Link>)
 

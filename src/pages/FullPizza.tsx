@@ -12,7 +12,7 @@ const FullPizza: React.FC = () => {
         imageUrl: string
         title: string
         price: number
-    }>({imageUrl: '', title: '', price: 0})
+    }>()
 
     
     const navigate = useNavigate()

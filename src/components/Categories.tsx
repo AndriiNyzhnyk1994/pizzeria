@@ -1,6 +1,13 @@
-import { useState } from "react"
+import React from "react"
 
-function Categories({ value, onChangeCategory }) {    
+type CategoriesPropsType = {
+    value: number 
+    onChangeCategory: any
+}
+
+
+const Categories: React.FC<CategoriesPropsType> = ({ value, onChangeCategory }) => {    
+    
     const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
     
     return (

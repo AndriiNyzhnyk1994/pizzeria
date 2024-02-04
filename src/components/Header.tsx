@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux'
 import { selectCart } from '../redux/slices/cartSlice'
 
 
-function Header({ searchValue, setSearchValue }) {
+const Header: React.FC = () => {
   const { items, totalPrice } = useSelector(selectCart)
   const {pathname} = useLocation()
 
-  const totalCount = items.reduce((acc, el) => {
+  const totalCount = items.reduce((acc: number, el: any) => {
     return acc + el.count
   }, 0)
 
@@ -26,7 +26,7 @@ function Header({ searchValue, setSearchValue }) {
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Search />
 
 
         <div className="header__cart">
