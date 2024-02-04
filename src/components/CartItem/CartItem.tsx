@@ -12,12 +12,13 @@ type CartItemPropsType = {
     size: number
 }
 
-const CartItem: React.FC<CartItemPropsType> = ({ id, title, price, count, imageUrl, type, size }) => {
+const CartItem: React.FC<CartItemPropsType> = (cartItemProps) => {
+    const { id, title, price, count, imageUrl, type, size } = cartItemProps
 
     const dispatch = useDispatch()
 
     const onClickIncrease = () => {
-        dispatch(addItem({ id }))
+        dispatch(addItem(cartItemProps))
     }
     const onClickDecrease = () => {
         if (count) {

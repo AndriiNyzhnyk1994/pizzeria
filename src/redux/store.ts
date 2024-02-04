@@ -11,3 +11,7 @@ export const store = configureStore({
     pizzas: pizzasReducer,
   },
 })
+
+type FuncType = typeof store.getState
+
+export type RootState = ReturnType<FuncType>
