@@ -3,15 +3,29 @@ import logoSvg from '../assets/img/pizza-logo.svg'
 import Search from './Search'
 import { useSelector } from 'react-redux'
 import { selectCart } from '../redux/slices/cartSlice'
+import { useEffect, useRef } from 'react'
 
 
 const Header: React.FC = () => {
   const { items, totalPrice } = useSelector(selectCart)
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
 
   const totalCount = items.reduce((acc: number, el: any) => {
     return acc + el.count
   }, 0)
+
+  const isMounted = useRef(false)
+  // isMounted не пересоздается и сохраняет значение между рендерами 
+  useEffect(() => {
+    if (isMounted.current) {
+      // это проверка на то, первый ли это рендер
+      // (если первый, то не пушим данные с localStorage потому что их нет)
+      const json = JSON.stringify(items)
+      localStorage.setItem('cartData', json)
+    } else {
+      isMounted.current = true
+    }
+  }, [items])
 
   return (
     <div className="header">
