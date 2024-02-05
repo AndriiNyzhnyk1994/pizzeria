@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
-import { SortPropertyEnum, SortType, setSort } from "../redux/slices/filterSlice"
+import { SortPropertyEnum, SortType } from "../redux/slices/filter/types"
+import { setSort } from "../redux/slices/filter/slice"
 
 
 type SortPopupPropsType = {

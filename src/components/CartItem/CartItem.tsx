@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice'
+import { addItem, minusItem, removeItem } from '../../redux/slices/cart/slice'
 import styles from './CartItem.module.scss'
 
 type CartItemPropsType = {

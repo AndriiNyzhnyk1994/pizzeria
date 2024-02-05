@@ -1,10 +1,11 @@
+import { CartItemType } from "../redux/slices/cart/types"
 import { calcTotalPrice } from "./calcTotalPrice"
 
 export const getCartFromLS = () => {
     const data = localStorage.getItem('cartData')
     const items = data ? JSON.parse(data) : []
     const totalPrice = calcTotalPrice(items)
-    return { items, totalPrice }
+    return { items: items as CartItemType[], totalPrice }
 }
 
 // это функция, которая вытаскивает данные из localStorage в наш проект
