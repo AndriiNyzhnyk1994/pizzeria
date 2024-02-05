@@ -6,7 +6,6 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Sort from "../components/Sort";
 import Pagination from '../components/Pagination';
 import { useSelector } from 'react-redux';
-import NotFound from './NotFound';
 import { useAppDispatch } from '../redux/store';
 import { selectFilter } from '../redux/slices/filter/selector';
 import { setCategoryId, setCurrentPage } from '../redux/slices/filter/slice';
@@ -66,7 +65,7 @@ const Home: React.FC = () => {
             <h2 className="content__title">Все пиццы</h2>
             {
                 status === 'error'
-                    ? <NotFound />
+                    ? <h3>Ничего не найдено</h3>
                     : <div className="content__items">
 
                         {
