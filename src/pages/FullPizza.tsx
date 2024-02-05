@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const FullPizza: React.FC = () => {
     const { id } = useParams()
@@ -14,11 +14,11 @@ const FullPizza: React.FC = () => {
         price: number
     }>()
 
-    
+
     const navigate = useNavigate()
     // useNavigate - хук библиотеки React-Router,
     // который позволяет менять адресную строку через код
-     
+
     useEffect(() => {
         async function fetchPizza() {
             try {
@@ -44,6 +44,12 @@ const FullPizza: React.FC = () => {
             <h2>{pizzaData.title}</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, tenetur!</p>
             <h4>{pizzaData.price}$</h4>
+            <Link to={'/sdaf'}>
+                <button className="button button--outline button--add">
+                    <span>Назад</span>
+                </button>
+            </Link>
+
 
         </div>
     )

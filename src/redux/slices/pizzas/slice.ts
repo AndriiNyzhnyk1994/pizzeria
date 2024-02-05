@@ -1,41 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { RootState } from '../store'
+import { FetchPizzasArgsType, PizzasSliceStateType, PizzaType, Status } from './types'
 
-type FetchPizzasArgsType = Record<string, string>
-// Record нужен для того, чтобы типизировать обьект, 
-// в котором все элементы одинакового тип (в нашем случае string)
-// Record принимает в себя 2 аргумента: ключ и значение 
-// (у нас ключи string, значения тоже string)
-// Это проще, чем полностью вручную расписывать тип, как здесь: {
-//     sortBy: string
-//     order: string
-//     category: string
-//     search: string
-//     currentPage: string
-// }
-
-type PizzaType = {
-    id: string
-    title: string
-    price: number
-    imageUrl: string
-    sizes: number[]
-    types: number[]
-    rating: number
-}
-
-export enum Status {
-    LOADING = 'loading',
-    SUCCESS = 'success',
-    ERROR = 'error',
-
-}
-
-interface PizzasSliceStateType {
-    items: PizzaType[]
-    status: Status
-}
 
 
 // это AsyncThunk. Он предназначен для обработки запросов на сервер
@@ -86,8 +52,6 @@ export const pizzasSlice = createSlice({
             })
     },
 })
-
-export const selectPizzas = (state: RootState) => state.pizzas
 
 export const { setItems } = pizzasSlice.actions
 export default pizzasSlice.reducer
