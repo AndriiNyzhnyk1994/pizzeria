@@ -1,0 +1,45 @@
+.wrapper {
+    padding: 20px;
+}
+.pizzaImg {
+    max-width: 400px;
+    min-width: 200px;
+    object-fit: contain;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.pizzaBlock {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.pizzaInfo {
+    box-sizing: border-box;
+    margin-top: 50px;
+}
+
+.description {
+    min-width: 150px;
+    max-width: 600px;
+}
+
+.buyOptions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    button {
+        height: 80px;
+        font-weight: 800;
+    }
+}
+
+.price {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 40px;
+}

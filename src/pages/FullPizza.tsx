@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import s from './FullPizza.module.scss'
 
 const FullPizza: React.FC = () => {
     const { id } = useParams()
@@ -39,18 +40,24 @@ const FullPizza: React.FC = () => {
     }
 
     return (
-        <div className='container'>
-            <img src={pizzaData.imageUrl} />
-            <h2>{pizzaData.title}</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, tenetur!</p>
-            <h4>{pizzaData.price}$</h4>
-            <Link to={'/sdaf'}>
+        <div className={`container ${s.wrapper}`}>
+            <h2 className={s.title} >{pizzaData.title}</h2>
+            <div className={s.pizzaBlock}>
+                <img className={s.pizzaImg} src={pizzaData.imageUrl} />
+                <div className={s.pizzaInfo}>
+                    <p className={s.description}>Наслаждайтесь классическим вкусом с нашей пиццей "Маргарита" - воплощение итальянской традиции в каждом кусочке. Нежное тесто, тонко пропеченное в печи, украшено сочным томатным соусом, который пробуждает аппетит своим свежим вкусом. Щедро усыпанная ароматным базиликом, каждая долька таит в себе сокровище пряностей. А тонкие кусочки моццареллы, растекаясь по поверхности, создают гармонию в каждом укусе. Пицца "Маргарита" - это не только блюдо, это искусство, которое покоряет сердца и заставляет возвращаться снова и снова.</p>
+                    <div className={s.buyOptions}>
+                        <button className='button button--outline button--add'>Добавить в корзину</button>
+                        <h4 className={s.price}>{pizzaData.price}$</h4>
+                    </div>
+                </div>
+
+            </div>
+            <Link to={'/'}>
                 <button className="button button--outline button--add">
                     <span>Назад</span>
                 </button>
             </Link>
-
-
         </div>
     )
 }
