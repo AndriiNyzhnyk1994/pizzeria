@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/48.7c8bfdad.chunk.css","mappings":"AAAA,0BACI","sources":["components/CartItem/CartItem.module.scss"],"sourcesContent":[".disabled {\r\n    opacity: 0.2;\r\n}"],"names":[],"sourceRoot":""}
