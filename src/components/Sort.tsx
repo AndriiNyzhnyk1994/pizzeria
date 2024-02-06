@@ -14,7 +14,7 @@ export const list: SortType[] = [
   { name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
   { name: 'цене (ASC)', sortProperty: SortPropertyEnum.PRICE_ASC },
   { name: 'алфавиту (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC },
-  { name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ]
 
 const SortPopUp: React.FC<SortPopupPropsType> = React.memo(({ value }) => {
