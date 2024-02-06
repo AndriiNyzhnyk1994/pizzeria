@@ -78,5 +78,5 @@ const CartItem: React.FC<CartItemPropsType> = (cartItemProps) => {
         </div>
     )
 }
-
+ 
 export default CartItem
