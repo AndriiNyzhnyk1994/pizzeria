@@ -106,6 +106,11 @@ body {
     .content__title {
       margin: 0;
     }
+
+    @media(max-width: 480px) {
+      margin: 0 auto;
+    }
+
   }
 }
 
@@ -339,7 +344,7 @@ body {
 
   &--empty {
     margin: 0 auto;
-    width: 560px;
+    max-width: 560px;
     text-align: center;
     
 
@@ -355,6 +360,8 @@ body {
       letter-spacing: 0.01em;
       color: #777777;
     }
+
+    
 
     icon {
       position: relative;
@@ -373,6 +380,26 @@ body {
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+      margin-bottom: 20px;
+    }
+    @media(max-width: 760px) {
+      
+      h2 {
+        line-height: 1.1;
+      }
+      p {
+        margin: 0 auto;
+        max-width: 200px;
+      }
+      .img {
+        margin: 35px auto 60px;
+      }
+      
+    }
+    @media(max-width: 370px) {
+      img {
+        width: 200px;
+      }
     }
   }
 }

@@ -1,9 +1,10 @@
 import { Link, useLocation } from 'react-router-dom'
-import logoSvg from '../assets/img/pizza-logo.svg'
-import Search from './Search'
+import logoSvg from '../../assets/img/pizza-logo.svg'
+import Search from '../Search'
 import { useSelector } from 'react-redux'
-import { selectCart } from '../redux/slices/cart/selector'
+import { selectCart } from '../../redux/slices/cart/selector'
 import { useEffect, useRef } from 'react'
+
 
 
 const Header: React.FC = () => {
@@ -32,11 +33,10 @@ const Header: React.FC = () => {
       <div className="container">
         <Link to="/">
           <div className="header__logo">
-
             <img width="38" src={logoSvg} alt="Pizza logo" />
             <div>
               <h1>React Pizza</h1>
-              <p>самая вкусная пицца во вселенной</p>
+              <p className='header__logo-text'>самая вкусная пицца во вселенной</p>
             </div>
           </div>
         </Link>

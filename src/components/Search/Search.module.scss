@@ -27,6 +27,7 @@
     top: 15px;
 
 }
+
 .clearIcon {
     width: 18px;
     height: 18px;
@@ -39,5 +40,11 @@
 
     &:hover {
         opacity: 0.8;
+    }
+}
+
+@media(max-width: 1000px) {
+    .root {
+        max-width: 100px;
     }
 }
